@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>สรุปโน้ต</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600&family=Sarabun:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div class="board">
+  <header class="board__header">
+    <div>
+      <h1>Notekub</h1>
+      <p class="subhead">งงไรก็เอาข้อความมาวาง ละกดแค่นั้นก็ได้สิ่งที่เองต้องการละ</p>
+    </div>
+  </header>
+
+  <main class="layout">
+
+    <section class="pane pane--input" aria-label="โน้ตต้นฉบับ">
+      <label for="note" class="pane__label">โน้ตของนาย</label>
+      <textarea id="note" class="paper" placeholder="วางเนื้อหาที่จดจากในห้อง สไลด์ หรือหนังสือ ตรงนี้..."></textarea>
+
+      <div class="modes" role="tablist" aria-label="รูปแบบสรุป">
+        <button type="button" class="mode-tab is-active" data-mode="short">สรุปสั้น</button>
+        <button type="button" class="mode-tab" data-mode="bullet">แบ่งเป็นหัวข้อ</button>
+        <button type="button" class="mode-tab" data-mode="simple">อธิบายง่าย</button>
+      </div>
+
+      <button id="run" class="run-btn">
+        <span class="run-btn__label">สรุปเลย</span>
+        <span class="run-btn__spinner" hidden></span>
+      </button>
+
+      <p id="error" class="error" hidden></p>
+    </section>
+
+    <section class="pane pane--output" aria-label="ผลสรุป">
+      <div class="pane__label-row">
+        <span class="pane__label">ผลสรุป</span>
+        <span id="result-mode" class="result-mode"></span>
+      </div>
+      <div id="result" class="result">
+        <p class="result__empty">ยังไม่มีผลสรุป — กรอกโน้ตด้านซ้ายแล้วกด "สรุปเลย"</p>
+      </div>
+    </section>
+
+  </main>
+
+  <section class="history" aria-label="ประวัติ">
+    <h2>ประวัติ</h2>
+    <div id="history-list" class="history-list">
+      {% if history %}
+        {% for r in history %}
+        <article class="history-item">
+          <div class="history-item__meta">
+            <span class="history-item__mode">{{ r.mode }}</span>
+            <span class="history-item__date">{{ r.date }}</span>
+          </div>
+          <p class="history-item__text">{{ r.summary }}</p>
+        </article>
+        {% endfor %}
+      {% else %}
+        <p class="history-empty">ยังไม่มีประวัติ สรุปครั้งแรกแล้วจะขึ้นตรงนี้</p>
+      {% endif %}
+    </div>
+  </section>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
