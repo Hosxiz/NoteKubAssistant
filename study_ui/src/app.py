@@ -138,6 +138,4 @@ def history():
 
 
 if __name__ == "__main__":
-    print("DEEPSEEK_API_KEY:", "FOUND" if API_KEY else "MISSING (checked .env)")
-    print(f"MOCK_MODE: {'ENABLED' if MOCK_MODE else 'disabled'}")
-    app.run(debug=True)
+    app.run(host="0.0.0.0", port=int(os.environ.get("PORT", 5000)), debug=False)
