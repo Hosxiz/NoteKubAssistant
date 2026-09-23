@@ -52,6 +52,8 @@ def call_deepseek(text, mode):
     if mode not in MODE_PROMPTS:
         raise ValueError("โหมดไม่ถูกต้อง")
 
+
+
     prompt = MODE_PROMPTS[mode].format(text=text)
     headers = {"Authorization": f"Bearer {API_KEY}", "Content-Type": "application/json"}
     payload = {"model": "deepseek-chat", "messages": [{"role": "user", "content": prompt}], "stream": False}
